@@ -16,7 +16,8 @@ env.ignore_hostkey="True"
 @parallel
 def configure_salt_minion_master():
 	"modifies config to point to salt master"
-	sudo('yum install epel-release -y')
+	sudo('yum install -y https://repo.saltstack.com/yum/redhat/salt-repo-latest-1.el7.noarch.rpm ')
+	sudo('yum clean expire-cache')
 	sudo('yum install salt-minion -y')
 	sed('/etc/salt/minion','#master: salt','master: <MASTER IP HERE>',limit='',use_sudo=True,backup='bak' )
 	sudo('chkconfig salt-minion on')
